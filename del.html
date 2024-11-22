@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Assignment</title>
+    <!-- Correctly include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        /* Error style class */
+        .error {
+            border: 2px solid red;
+            background-color: yellow;
+        }
+        body{
+            background-color: rgb(153, 79, 79);
+        }
+    </style>
+</head>
+<body>
+    <h2>Arithmetic Operations with jQuery</h2>
+
+    <!-- Input fields -->
+    <div>
+        <input type="text" id="num1" placeholder="Enter first number">
+        <input type="text" id="num2" placeholder="Enter second number">
+    </div>
+
+    <!-- Buttons for arithmetic operations -->
+    <div>
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="multiply">*</button>
+        <button id="divide">/</button>
+    </div>
+
+    <!-- Result display -->
+    <div>
+        <h3>Result: <span id="result">0</span></h3>
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+        $(document).ready(function () {
+            // Apply error class if input length > 10 when focus is moved out
+            $("input[type='text']").on("blur", function () {
+                if ($(this).val().length > 10) {
+                    $(this).addClass("error");
+                } else {
+                    $(this).removeClass("error");
+                }
+            });
+
+            // Function to perform arithmetic operations
+            function calculate(operation) {
+                // Get values from the textboxes
+                let num1 = parseFloat($("#num1").val());
+                let num2 = parseFloat($("#num2").val());
+
+                // Validate inputs
+                if (isNaN(num1) || isNaN(num2)) {
+                    alert("Please enter valid numbers");
+                    return;
+                }
+
+                let result;
+                switch (operation) {
+                    case "add":
+                        result = num1 + num2;
+                        break;
+                    case "subtract":
+                        result = num1 - num2;
+                        break;
+                    case "multiply":
+                        result = num1 * num2;
+                        break;
+                    case "divide":
+                        if (num2 === 0) {
+                            alert("Cannot divide by zero!");
+                            return;
+                        }
+                        result = num1 / num2;
+                        break;
+                }
+                $("#result").text(result);
+            }
+
+            // Event listeners for buttons
+            $("#add").on("click", function () {
+                calculate("add");
+            });
+
+            $("#subtract").on("click", function () {
+                calculate("subtract");
+            });
+
+            $("#multiply").on("click", function () {
+                calculate("multiply");
+            });
+
+            $("#divide").on("click", function () {
+                calculate("divide");
+            });
+        });
+    </script>
+</body>
+</html>
